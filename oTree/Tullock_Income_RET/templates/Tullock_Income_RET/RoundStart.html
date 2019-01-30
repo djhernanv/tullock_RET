@@ -1,0 +1,48 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+{% block title %}
+    Start Round
+{% endblock %}
+
+{% block content %}
+<hr>
+
+    <div class="jumbotron">
+    <h1 class="display-1 text-center">Round {{ subsession.round_number }} of {{ Constants.num_rounds}}</h1>
+    <br>
+    <br>
+    <h3>{% if subsession.round_number == Constants.num_rounds %}
+        <p class="text-center">
+        This is the last round.
+        </p>
+        {% endif %}
+    </h3>
+        <p class="text-center">
+           In this round, for each solved sequence you will receive:
+            <br>
+            {% if subsession.round_number > 1 %}
+            {% if winner_last %}
+            <h5 class="text-center"><strong>2 Tokens</strong>
+                {% if Constants.treatment %} (before taxation and redistribution) {% endif %}
+            </h5>
+            {% else %}
+            <h5 class="text-center"><strong>1 Token</strong>
+                {% if Constants.treatment %} (before taxation and redistribution) {% endif %}
+            </h5>
+            {% endif %}
+        {% else %}
+        <h5 class="text-center"><strong>1 Token</strong>
+                {% if Constants.treatment %} (before taxation and redistribution) {% endif %}
+        </h5>
+        {% endif %}
+        </p>
+        <br>
+        <br>
+        <br>
+    <p class="text-center">
+    <button class="btn btn-primary">Next</button>
+    </p>
+    </div>
+
+{% endblock %}

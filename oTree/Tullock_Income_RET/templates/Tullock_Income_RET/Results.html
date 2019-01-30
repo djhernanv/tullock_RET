@@ -1,0 +1,170 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+{% block styles %}
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+    <style>
+    .fa-star {
+    color: #ffbb33;
+    font-size: 0.7em;
+}
+    </style>
+
+{% endblock %}
+
+{% block title %}
+    Results Round {{ subsession.round_number }} of {{ Constants.num_rounds}}
+{% endblock %}
+
+{% block content %}
+<hr>
+
+{% if subsession.round_number < Constants.num_rounds %}
+    <p>
+        {% if player.is_winner %}
+            <div class="alert alert-success" role="alert">
+                <strong>You won the high piece rate!</strong>
+            </div>
+        {% else %}
+            <div class="alert alert-warning" role="alert">
+                <strong>You did not win the high piece rate!</strong>
+            </div>
+        {% endif %}
+{% endif %}
+
+
+{% if subsession.round_number < Constants.num_rounds %}
+
+
+<div class="card">
+  <!-- Default panel contents -->
+  <div class="card-header bg-default mb-3">Group Results</div>
+  <div class="card-body">
+    <p>
+        Here you can see the investments and probabilities of the group members (you are participant <strong>{{ player.role }}</strong>):
+    </p>
+    <p>
+
+
+<!-- Begin Table -->
+<table class="table" id="table">
+
+  <tr>
+    <th class="tg-s6z2">Participant</th>
+    <th class="tg-s6z2">Investment</th>
+    <th class="tg-s6z2">Probability of Winning</th>
+    <th class="tg-s6z2">Piece Rate in present round</th>
+    <th class="tg-s6z2">Income from Letter Counting {% if Constants.treatment %} (After Tax and Redistribution) {% endif %}</th>
+    <th class="tg-s6z2">No. of Sequences Solved</th>
+    <th class="tg-s6z2">Income from Switch</th>
+    <th class="tg-s6z2">Total Earnings after Investment</th>
+  </tr>
+  <tr>
+    <td class="tg-s6z2"> <strong>{{ player.role }}</strong> {% if player.is_winner %} <sup><i class="fas fa-star"></i></sup>{% endif %}</td>
+    <td class="tg-s6z2"><strong>{{ player.investment_amount|floatformat:2 }}</strong></td>
+    <td class="tg-s6z2"><strong>{{ player.prob_percent|floatformat:2 }} %</strong> </td>
+    <td class="tg-s6z2"> <strong>
+        {% if subsession.round_number > 1 %}
+            {% if winner_last %}
+                2
+            {% else %}
+                1
+            {% endif %}
+        {% else %}
+                1
+        {% endif %}
+    </strong></td>
+    <td class="tg-s6z2"> <strong>{% if Constants.treatment %}
+        {{ player.available_income|floatformat:2 }}
+        {% else %}
+        {{ player.available_income|floatformat:0 }}</strong>
+        {% endif %}
+        </td>
+    <td class="tg-s6z2"> <strong>{{ player.production_strings|floatformat:0 }}</strong></td>
+    <td class="tg-s6z2"> <strong>{{ player.income_in_switch|floatformat:1 }}</strong></td>
+    <td class="tg-s6z2"> <strong>{{ player.earnings|floatformat:1 }}</strong></td>
+  </tr>
+  <tr>
+    <td class="tg-s6z2">{{ player.get_others_in_group.0.role }}{% if player.get_others_in_group.0.is_winner %}<sup><i class="fas fa-star"></i></sup> {% endif %}</td>
+    <td class="tg-s6z2">{{ player.get_others_in_group.0.investment_amount|floatformat:2 }}</td>
+    <td class="tg-s6z2">{{ player.get_others_in_group.0.prob_percent|floatformat:2 }} %</td>
+    <td class="tg-s6z2">
+            {% if subsession.round_number > 1 %}
+            {% if winner_last_0 %}
+                2
+            {% else %}
+                1
+            {% endif %}
+        {% else %}
+                1
+        {% endif %}
+    </td>
+    <td class="tg-s6z2">{% if Constants.treatment %}
+        {{ player.get_others_in_group.0.available_income|floatformat:2 }}
+        {% else %}
+        {{ player.get_others_in_group.0.available_income|floatformat:0 }}
+        {% endif %}
+        </td>
+    <td class="tg-s6z2">{{ player.get_others_in_group.0.production_strings|floatformat:0 }}</td>
+    <td class="tg-s6z2">{{ player.get_others_in_group.0.income_in_switch|floatformat:1 }} </td>
+    <td class="tg-s6z2">{{ player.get_others_in_group.0.earnings|floatformat:1 }} </td>
+  </tr>
+  <tr>
+    <td class="tg-s6z2">{{ player.get_others_in_group.1.role }}{% if player.get_others_in_group.1.is_winner %}<sup><i class="fas fa-star"></i></sup> {% endif %}</td>
+    <td class="tg-s6z2">{{ player.get_others_in_group.1.investment_amount|floatformat:2 }}</td>
+    <td class="tg-s6z2">{{ player.get_others_in_group.1.prob_percent|floatformat:2 }} %</td>
+    <td class="tg-s6z2">
+            {% if subsession.round_number > 1 %}
+            {% if winner_last_1 %}
+                2
+            {% else %}
+                1
+            {% endif %}
+        {% else %}
+                1
+        {% endif %}
+    </td>
+    <td class="tg-s6z2">{% if Constants.treatment %}
+        {{ player.get_others_in_group.1.available_income|floatformat:2 }}
+        {% else %}
+        {{ player.get_others_in_group.1.available_income|floatformat:0 }}
+        {% endif %}</td>
+    <td class="tg-s6z2">{{ player.get_others_in_group.1.production_strings|floatformat:0 }}</td>
+    <td class="tg-s6z2">{{ player.get_others_in_group.1.income_in_switch|floatformat:1 }}</td>
+    <td class="tg-s6z2">{{ player.get_others_in_group.1.earnings|floatformat:1 }}</td>
+  </tr>
+  <tfoot>
+  <tr>
+    <td class="tg-s6z2" colspan="1">Total</td>
+    <td class="tg-s6z2">{{ group.total_investments }}</td>
+    <td class="tg-s6z2">100%</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  </tfoot>
+</table>
+
+    </p>
+<hr>
+<hr>
+
+    (<sup><i class="fas fa-star"></i></sup>) denotes the winner of this round of investment
+    <br>
+
+
+{% endif %}
+
+</div>
+</div>
+
+<!-- End Table -->
+    <br>
+ {% next_button %}
+
+{% endblock %}
+

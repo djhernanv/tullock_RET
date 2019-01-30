@@ -1,0 +1,78 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Questionnaire
+{% endblock %}
+
+{% block styles %}
+
+    <style type="text/css">
+    /*input[type=radio]{
+      transform:scale(1.2);
+    }*/
+    .form-check-label {
+        font-size: 1.2em;
+    }
+    </style>
+{% endblock %}
+
+{% block content %}
+<hr>
+
+<div class="card">
+<div class="card-header bg-default mb-3"> Please answer the following question:</div>
+<div class="card-body">
+
+
+    <p>What had a higher impact on your earnings in the previous 8
+    rounds: your actions or chance? <br>
+
+    The option to the very left means that your earnings were determined by
+    pure chance (your actions had zero impact). The option to the very
+    right means your earnings were determined by your own actions only
+    (chance had zero impact). <br>
+
+    Please select one of the options below.
+    </p>
+
+
+<div class="card border-secondary mb-3 text-center" style="max-width: 40rem;">
+    <div class="card-body">
+    <div class="form-check form-check-inline">
+    <label class="form-check-label" for="fairness1">pure chance &nbsp &nbsp &nbsp</label><input class="form-check-input pull-right" type="radio"  name="fairness_end" id="fairness1" autocomplete="off" value="1"/>
+    </div>
+    <div class="form-check form-check-inline">
+    <input class="form-check-input" id="fairness2" type="radio" name="fairness_end" autocomplete="off" value="2"><label class="form-check-label" for="fairness2"></label>
+    </div>
+        <div class="form-check form-check-inline">
+    <input class="form-check-input" id="fairness3" type="radio" name="fairness_end" autocomplete="off" value="3"><label class="form-check-label" for="fairness3"></label>
+        </div>
+            <div class="form-check form-check-inline">
+    <input class="form-check-input" id="fairness4" type="radio" name="fairness_end" autocomplete="off" value="4"><label class="form-check-label" for="fairness4"></label>
+            </div>
+                <div class="form-check form-check-inline">
+    <input class="form-check-input" id="fairness5" type="radio" name="fairness_end" autocomplete="off" value="5"><label class="form-check-label" for="fairness5"></label>
+                </div>
+                    <div class="form-check form-check-inline">
+    <input class="form-check-input" id="fairness6" type="radio" name="fairness_end" autocomplete="off" value="6"><label class="form-check-label" for="fairness6"></label>
+                    </div>
+                        <div class="form-check form-check-inline">
+    <input class="form-check-input" id="fairness7" type="radio" name="fairness_end" autocomplete="off" value="7"><label class="form-check-label" for="fairness7">&nbsp &nbsp &nbsp only own actions</label>
+                        </div>
+    </div>
+</div>
+
+
+</div>
+</div>
+</div>
+
+
+
+
+
+<br>
+    {% next_button %}
+
+{% endblock %}

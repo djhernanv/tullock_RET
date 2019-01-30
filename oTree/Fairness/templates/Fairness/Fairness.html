@@ -1,0 +1,71 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Questionnaire
+{% endblock %}
+
+{% block styles %}
+
+    <style type="text/css">
+    /*input[type=radio]{
+      transform:scale(1.2);
+    }*/
+    .form-check-label {
+        font-size: 1.2em;
+    }
+    </style>
+{% endblock %}
+
+{% block content %}
+<hr>
+
+<div class="card">
+<div class="card-header bg-default mb-3"> Please answer the following question:</div>
+<div class="card-body">
+
+
+    <p>In terms of possible earnings, what will play a stronger role in the following 8 rounds, luck or skill?<br>
+    Please select an option in the form below. The option at the left means only luck will play a role and the option at the right means only skill will play a role.
+    </p>
+
+
+<div class="card border-secondary mb-3 text-center" style="max-width: 35rem;">
+    <div class="card-body">
+    <div class="form-check form-check-inline">
+    <label class="form-check-label" for="fairness1">only luck &nbsp &nbsp &nbsp</label><input class="form-check-input pull-right" type="radio"  name="fairness" id="fairness1" autocomplete="off" value="1"/>
+    </div>
+    <div class="form-check form-check-inline">
+    <input class="form-check-input" id="fairness2" type="radio" name="fairness" autocomplete="off" value="2"><label class="form-check-label" for="fairness2"></label>
+    </div>
+        <div class="form-check form-check-inline">
+    <input class="form-check-input" id="fairness3" type="radio" name="fairness" autocomplete="off" value="3"><label class="form-check-label" for="fairness3"></label>
+        </div>
+            <div class="form-check form-check-inline">
+    <input class="form-check-input" id="fairness4" type="radio" name="fairness" autocomplete="off" value="4"><label class="form-check-label" for="fairness4"></label>
+            </div>
+                <div class="form-check form-check-inline">
+    <input class="form-check-input" id="fairness5" type="radio" name="fairness" autocomplete="off" value="5"><label class="form-check-label" for="fairness5"></label>
+                </div>
+                    <div class="form-check form-check-inline">
+    <input class="form-check-input" id="fairness6" type="radio" name="fairness" autocomplete="off" value="6"><label class="form-check-label" for="fairness6"></label>
+                    </div>
+                        <div class="form-check form-check-inline">
+    <input class="form-check-input" id="fairness7" type="radio" name="fairness" autocomplete="off" value="7"><label class="form-check-label" for="fairness7">&nbsp &nbsp &nbsp only skill</label>
+                        </div>
+    </div>
+</div>
+
+
+</div>
+</div>
+</div>
+
+
+
+
+
+<br>
+    {% next_button %}
+
+{% endblock %}

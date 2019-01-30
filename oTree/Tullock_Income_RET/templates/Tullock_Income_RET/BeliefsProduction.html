@@ -1,0 +1,62 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+{% load staticfiles %}
+
+
+{% block title %}
+    Task Beliefs Round {{ subsession.round_number }} of {{ Constants.num_rounds}}
+{% endblock %}
+
+{% block styles %}
+    <link href="{% static "Tullock_Income_RET/css/Belief.css" %}" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+    <style>
+    .fa-star {
+    color: #ffbb33;
+    font-size: 0.7em;
+}
+    </style>
+
+{% endblock %}
+
+{% block content %}
+<hr>
+   <div class="card bg-light instructions">
+   <div class="card-body">
+       <h5>Please answer the following questions:</h5>
+    <br>
+    <br>
+<ol type="1"> <!-- This starts a numbered list -->
+
+
+    <li> How many sequences do you think player {{ player.get_others_in_group.0.role }}{% if subsession.round_number > 1  %} {% if winner_last_0 %} <sup><i class="fas fa-star"></i></sup> {% endif %} {% endif %} will <strong>solve</strong> in the present round (Round {{ subsession.round_number }} of {{ Constants.num_rounds}})?:
+       {% formfield player.production_belief_0 label="" %} </li>
+
+    <li> How many sequences do you think player {{ player.get_others_in_group.1.role }} {% if subsession.round_number > 1  %} {% if winner_last_1 %} <sup><i class="fas fa-star"></i></sup> {% endif %} {% endif %} will <strong>solve</strong> in the present round (Round {{ subsession.round_number }} of {{ Constants.num_rounds}})?:
+       {% formfield player.production_belief_1 label="" %} </li>
+
+</ol>
+<br>
+   {% if subsession.round_number > 1  %}
+<hr>
+       {% if winner_last %}
+
+           <strong>Note:</strong> In this round, players {{ player.get_others_in_group.0.role }} and {{ player.get_others_in_group.1.role }} have each a piece rate of {{ Constants.tokensper_string }} Token per sequence {% if Constants.treatment %} (before taxation and redistribution) {% endif %}.
+
+           {% else %}
+
+    (<sup><i class="fas fa-star"></i></sup>) denotes the player in this round with the high piece rate of {{ Constants.tokensper_string_high }} Tokens per sequence  {% if Constants.treatment %} (before taxation and redistribution) {% endif %}.
+
+           {% endif %}
+    {% endif %}
+
+<br>
+
+   </div>
+   </div>
+<br>
+    {% next_button %}
+
+{% endblock %}

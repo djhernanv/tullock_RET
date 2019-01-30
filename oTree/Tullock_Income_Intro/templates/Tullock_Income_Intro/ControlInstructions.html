@@ -1,0 +1,201 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+{% load staticfiles %}
+
+
+{% block title %}
+    Control Questions
+{% endblock %}
+
+{% block styles %}
+    <link href="{% static "Tullock_Income_Intro/css/Belief.css" %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<hr>
+    <div class="card bg-light instructions">
+    <div class="card-body">
+        To make sure that you have understood the instructions, please answer the questions below.
+        <br>
+        Remember:<p>
+        {% if subsession.round_number == 1%}
+        Per correctly solved sequence you will get {{ Constants.tokensper_string }} Token.
+        {% else %}
+            {% if winner_last %}
+                Per correctly solved sequence you will get {{ Constants.tokensper_string_high }} Tokens.
+            {% else %}
+                Per correctly solved sequence you will get {{ Constants.tokensper_string }} Token.
+            {% endif %}
+        {% endif %}
+    <br>
+        In the <strong> switch mode </strong> you will get 0.1 Tokens per second ( = 1 Token per {{ Constants.secondsper_token }} seconds).
+    </p>
+        You can only proceed if you answer all questions correctly.<br>
+    </div>
+    </div>
+
+<div class="card">
+       <div class="card-header bg-default mb-3">
+        <h5>Earnings Check</h5>
+        </div>
+  <div class="card-body">
+
+      <table class="table">
+  <thead>
+  <tr>
+    <th class="tg-s6z2">Number of Sequences Solved</th>
+    <th class="tg-s6z2">Time (sec)</th>
+    <th class="tg-s6z2">Activity</th>
+    <th class="tg-s6z2">Earnings (Tk)</th>
+  </thead>
+  </tr>
+  <tr>
+    <td class="tg-s6z2">15</td>
+    <td class="tg-s6z2">120</td>
+    <td class="tg-s6z2">Letter counting</td>
+    <td class="tg-s6z2">
+        <div class="form-group">
+        <input type="number" class="form-control" name="solution_1" id="solution_1" oninput="doMath()" onclick="this.select()" value="0" aria-describedby="error_1">
+            <small id="error_1" class="form-text text-danger"> {{ form.solution_1.errors }} </small>
+        </div>
+    </td>
+  </tr>
+  <tr>
+    <td class="tg-s6z2"></td>
+    <td class="tg-s6z2">60</td>
+    <td class="tg-s6z2">"Switch" mode</td>
+    <td class="tg-s6z2">
+        <div class="form-group">
+        <input type="number" class="form-control" name="solution_2" id="solution_2" oninput="doMath()" onclick="this.select()" value="0" aria-describedby="error_2">
+            <small id="error_2" class="form-text text-danger"> {{ form.solution_2.errors }} </small>
+        </div>
+    </td>
+  </tr>
+  <tfoot>
+  <tr>
+    <td class="tg-s6z2"><strong>Total</strong></td>
+    <td class="tg-s6z2">180</td>
+    <td class="tg-s6z2"></td>
+    <td class="tg-s6z2">
+        <div id="sum_sols">
+            0
+        </div>
+    </td>
+  </tr>
+  </tfoot>
+</table>
+
+</div>
+
+</div>
+
+    <br>
+
+<div class="card">
+       <div class="card-header bg-default mb-3">
+        <h5>Switch Check</h5>
+        </div>
+  <div class="card-body">
+
+        <p>The following table lists how much time three fictional participants needed to solve nine consecutive sequences.
+        Please select for each participant the sequence after which she/he should have stopped solving sequences and
+            changed to the "switch mode" if she/he was interested in maximizing
+        her/his <strong>total</strong> earnings in that round.
+        </p>
+        <br>
+      <hr>
+      <br>
+
+
+        <table class="table table-striped">
+            <tr>
+            <th>Sequence</th>
+                <th style="text-align:right"> Time Needed by <br> Participant "X" <br> (seconds)</th>
+                <th style="text-align:right"> Time Needed by <br> Participant "Y" <br> (seconds)</th>
+                <th style="text-align:right"> Time Needed by <br> Participant "Z" <br> (seconds)</th>
+            </tr>
+            <td>||||</td>
+            <td style="text-align:right">4  <label class="btn btn-default active btn-sm"><input type="radio" name="solution_3" autocomplete="off" value="4"></label></td>
+            <td style="text-align:right">1  <label class="btn btn-default active btn-sm"><input type="radio" name="solution_4" autocomplete="off" value="1"></label></td>
+            <td style="text-align:right">5  <label class="btn btn-default active btn-sm"><input type="radio" name="solution_5" autocomplete="off" value="5"></label></td>
+            <tr>
+            <td>||||||||</td>
+            <td style="text-align:right">5 <label class="btn btn-default active btn-sm"><input type="radio" name="solution_3" autocomplete="off" value="5"></label></td>
+            <td style="text-align:right">2 <label class="btn btn-default active btn-sm"><input type="radio" name="solution_4" autocomplete="off" value="2"></label></td>
+            <td style="text-align:right">9 <label class="btn btn-default active btn-sm"><input type="radio" name="solution_5" autocomplete="off" value="9"></label></td>
+            </tr>
+            <tr>
+            <td>||||||||||||</td>
+            <td style="text-align:right">8  <label class="btn btn-default active btn-sm"><input type="radio" name="solution_3" autocomplete="off" value="8"></label></td>
+            <td style="text-align:right">4  <label class="btn btn-default active btn-sm"><input type="radio" name="solution_4" autocomplete="off" value="4"></label></td>
+            <td style="text-align:right">8  <label class="btn btn-default active btn-sm"><input type="radio" name="solution_5" autocomplete="off" value="8"></label></td>
+            </tr>
+            <tr>
+            <td>||||||||||||||||</td>
+            <td style="text-align:right">9  <label class="btn btn-default active btn-sm"><input type="radio" name="solution_3" autocomplete="off" value="9"></label></td>
+            <td style="text-align:right">7  <label class="btn btn-default active btn-sm"><input type="radio" name="solution_4" autocomplete="off" value="7"></label></td>
+            <td style="text-align:right">10  <label class="btn btn-default active btn-sm"><input type="radio" name="solution_5" autocomplete="off" value="10"></label></td>
+            </tr>
+            <tr>
+            <td>||||||||||||||||||||</td>
+            <td style="text-align:right">8  <label class="btn btn-default active btn-sm"><input type="radio" name="solution_3" autocomplete="off" value="8"></label></td>
+            <td style="text-align:right">5  <label class="btn btn-default active btn-sm"><input type="radio" name="solution_4" autocomplete="off" value="5"></label></td>
+            <td style="text-align:right">13  <label class="btn btn-default active btn-sm"><input type="radio" name="solution_5" autocomplete="off" value="13"></label></td>
+            </tr>
+            <tr>
+            <td>||||||||||||||||||||||||</td>
+            <td style="text-align:right">10 <label class="btn btn-default active btn-sm"><input type="radio" name="solution_3" autocomplete="off" value="10"></label></td>
+            <td style="text-align:right">9 <label class="btn btn-default active btn-sm"><input type="radio" name="solution_4" autocomplete="off" value="9"></label></td>
+            <td style="text-align:right">12 <label class="btn btn-default active btn-sm"><input type="radio" name="solution_5" autocomplete="off" value="12"></label></td>
+            </tr>
+            <tr>
+            <td>||||||||||||||||||||||||||||||||</td>
+            <td style="text-align:right">13  <label class="btn btn-default active btn-sm"><input type="radio" name="solution_3" autocomplete="off" value="13"></label></td>
+            <td style="text-align:right">9  <label class="btn btn-default active btn-sm"><input type="radio" name="solution_4" autocomplete="off" value="9"></label></td>
+            <td style="text-align:right">14  <label class="btn btn-default active btn-sm"><input type="radio" name="solution_5" autocomplete="off" value="14"></label></td>
+            </tr>
+            <tr>
+            <td>||||||||||||||||||||||||||||||||||||</td>
+            <td style="text-align:right">15  <label class="btn btn-default active btn-sm"><input type="radio" name="solution_3" autocomplete="off" value="15"></label></td>
+            <td style="text-align:right">10  <label class="btn btn-default active btn-sm"><input type="radio" name="solution_4" autocomplete="off" value="10"></label></td>
+            <td style="text-align:right">14  <label class="btn btn-default active btn-sm"><input type="radio" name="solution_5" autocomplete="off" value="14"></label></td>
+            </tr>
+            <tr>
+            <td>||||||||||||||||||||||||||||||||||||||||</td>
+            <td style="text-align:right">18  <label class="btn btn-default active btn-sm"><input type="radio" name="solution_3" autocomplete="off" value="18"></label> <small id="error_3" class="form-text text-danger"> {{ form.solution_3.errors }} </small></td>
+            <td style="text-align:right">13  <label class="btn btn-default active btn-sm"><input type="radio" name="solution_4" autocomplete="off" value="13"></label> <small id="error_4" class="form-text text-danger"> {{ form.solution_4.errors }} </small></td>
+            <td style="text-align:right">18  <label class="btn btn-default active btn-sm"><input type="radio" name="solution_5" autocomplete="off" value="18"></label> <small id="error_5" class="form-text text-danger"> {{ form.solution_5.errors }} </small></td>
+            </tr>
+        </table>
+
+  </div>
+
+   <br>
+   <br>
+</div>
+
+<hr>
+
+    <br>
+
+    {% next_button %}
+
+{% endblock %}
+
+
+{% block scripts %}
+
+    <script type="text/javascript">
+    function doMath()
+    {
+        // Capture the entered values of two input boxes
+        var solution_1 = document.getElementById('solution_1').value;
+        var solution_2 = document.getElementById('solution_2').value;
+
+        // Add them together and display
+        var sum_sols = (parseInt(solution_1) || 0) + (parseInt(solution_2) || 0);
+        document.getElementById("sum_sols").innerHTML = sum_sols;
+    }
+    </script>
+
+{% endblock %}

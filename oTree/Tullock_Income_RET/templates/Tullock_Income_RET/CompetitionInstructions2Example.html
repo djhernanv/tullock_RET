@@ -1,0 +1,197 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+{% load humanize %}
+
+
+{% block title %}
+    Investment and Award
+{% endblock %}
+
+{% block content %}
+<hr>
+<div class="card bg-light instructions">
+  <div class="card-body">
+
+      <h3> Opportunity for Higher Piece Rate</h3>
+      <br>
+
+      <p>
+        In the first of the next {{ Constants.num_rounds|apnumber}} rounds all participants will have the same piece rate of {{ Constants.tokensper_string}} Token per correctly solved sequence.
+       </p>
+    <p>
+        In all the following rounds exactly <strong>one out of the {{ Constants.players_per_group|apnumber }} group members</strong> will get
+        a higher piece rate of <strong><em>{{ Constants.tokensper_string_high }} Tokens</em></strong> per correct sequence.
+       The other players will keep their piece rate of {{ Constants.tokensper_string }} Token per sequence.
+        How the person that gets the high piece rate is chosen is explained below.
+    </p>
+
+        <p>
+        All participants in all rounds will get 1 Token per
+            {{ Constants.secondsper_token }} seconds spent in the <em>switch mode</em>.
+   </p>
+
+      <br>
+    <hr>
+      <h3>Investment for a Higher Piece Rate</h3>
+      <br>
+    {% if Constants.treatment %}
+
+        <p>
+            To obtain the higher piece rate you will be able to invest some of your available income, i.e. your income from the letter counting task after taxation and redistribution.
+            Note that you can only invest income received in the current round and you cannot invest earnings from the <em>switch mode</em>.
+        </p>
+
+    {% else %}
+        To obtain the higher piece rate you will have the opportunity to invest some of your earnings from counting "a"s in the <i>Letter Counting Task</i>.
+        Note that you can only invest income received in the current round and you cannot invest earnings from the switch mode.
+    {% endif %}
+    </p>
+    <p>
+       Your probability of obtaining the higher piece rate is equal to the share of your investment relative to the sum of all investments in your group (including yours).
+        You can keep the tokens that you do not invest,
+        but your investment will not be refunded, even if you do not obtain the higher piece rate.
+        The more you invest, the higher are your chances!
+    </p>
+    <br>
+  <hr>
+      <h3>Investment Example</h3>
+      <br>
+
+    Here you can see an illustrative example of individual and group investments:
+    <br>
+      <br>
+
+
+<!-- Begin Table -->
+<table class="table">
+  <thead>
+  <tr>
+    <th class="tg-s6z2">Player</th>
+    <th class="tg-s6z2">Investment</th>
+    <th class="tg-s6z2">Share of total<br>Group Investment</th>
+    <th class="tg-s6z2">Probability of receiving<br><em>high piece wage</em></th>
+  </thead>
+  </tr>
+  <tr>
+    <td class="tg-s6z2">X</td>
+    <td class="tg-s6z2">10</td>
+    <td class="tg-s6z2">25.0 %</td>
+    <td class="tg-s6z2">25.0 %</td>
+  </tr>
+  <tr>
+    <td class="tg-s6z2">Y</td>
+    <td class="tg-s6z2">16  </td>
+    <td class="tg-s6z2">40.0 %</td>
+    <td class="tg-s6z2">40.0 %</td>
+  </tr>
+  <tr>
+    <td class="tg-s6z2">Z</td>
+    <td class="tg-s6z2">14</td>
+    <td class="tg-s6z2">35.0 %</td>
+    <td class="tg-s6z2">35.0 %</td>
+  </tr>
+  <tfoot>
+  <tr>
+    <td class="tg-s6z2"><strong>Total</strong></td>
+    <td class="tg-s6z2">40</td>
+    <td class="tg-s6z2">100 %</td>
+    <td class="tg-s6z2">100 %</td>
+    <td class="tg-s6z2"></td>
+  </tr>
+  </tfoot>
+</table>
+<!-- End Table -->
+<br>
+
+   <p>
+	In this scenario, participant Y invested 16 tokens which corresponds to 40 % of the sum of all investments by the group members.<br>
+	Therefore, participant Y has a 40% probability of obtaining the <em>high piece rate</em> in the next round.</p>
+  <br>
+    <hr>
+      <h3><span style="text-decoration: underline;">Your</span> Earnings in the Previous Rounds:</h3>
+
+        {% if Constants.treatment == False %}
+        <br>
+             In the first round, <strong>with the piece rate of {{ Constants.tokensper_string }} Token per sequence</strong>, your earned:
+             <div class="badge badge-dark">
+                 {{ income_1 }} Tokens
+             </div>
+        <br>
+             In the second round, <strong>with the piece rate of {{ Constants.tokensper_string_high }} Tokens per sequence</strong>, you earned
+             <div class="badge badge-dark">
+             {{ income_2 }} Tokens
+             </div>
+      <br>
+        In comparison, with the high piece rate you earned {% if valuation > 0 %}<div class="badge badge-dark"> {{ abs_valuation|floatformat:1 }} Tokens more</div> than
+        {% elif valuation == 0 %}  <div class="badge badge-dark">the same Tokens as </div> {% else %} <div class="badge badge-dark"> {{ abs_valuation|floatformat:1 }} Tokens
+          less</div> than{% endif %} with the low piece rate.
+    <br>
+
+        {% endif %}
+
+        {% if Constants.treatment %}
+
+
+                    <br>
+             In the first round, <strong>with the piece rate of {{ Constants.tokensper_string }} Token per sequence</strong>, your earned:
+             <div class="badge badge-dark">
+                 {{ income_1 }} Tokens
+             </div>
+        <br>
+             In the round <strong> with the piece rate of {{ Constants.tokensper_string_high }} Tokens per sequence</strong>, you earned
+             <div class="badge badge-dark">
+             {{ income_3 }} Tokens
+             </div>
+            <br>
+            In comparison, with the high piece rate you earned {% if valuation > 0 %}<div class="badge badge-dark"> {{ abs_valuation|floatformat:1 }} Tokens more</div> than
+        {% elif valuation == 0 %}  <div class="badge badge-dark">the same Tokens as </div> {% else %} <div class="badge badge-dark"> {{ abs_valuation|floatformat:1 }} Tokens less</div> than{% endif %}
+            with the low piece rate.
+
+            <br>
+          <br>
+             In the round <strong>with the piece rate of 0.6 Token per sequence</strong>, your earned:
+             <div class="badge badge-dark">
+                 {{ income_2|floatformat:1 }} Tokens
+             </div>
+        <br>
+             In the round <strong>with the piece rate of 1.2 Tokens per sequence</strong>, you earned
+             <div class="badge badge-dark">
+             {{ income_4|floatformat:1 }} Tokens
+             </div>
+      <br>
+
+        In comparison, with the taxed high piece rate you earned {% if taxed_valuation > 0 %}<div class="badge badge-dark"> {{ taxed_abs_valuation|floatformat:1 }} Tokens more</div> than
+        {% elif taxed_valuation == 0 %}  <div class="badge badge-dark">the same Tokens as </div> {% else %} <div class="badge badge-dark"> {{ taxed_abs_valuation|floatformat:1 }} Tokens less</div> than{% endif %}
+            with the taxed low piece rate.
+    <br>
+        {% endif %}
+
+    <br>
+    <p>
+        Consequently, making an investment can increase your earnings in the following period but will reduce your earnings for the current period.
+    </p>
+
+
+<br>
+<br>
+<br>
+    <hr>
+Do you have any questions?
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+</div>
+</div>
+
+{% endblock %}

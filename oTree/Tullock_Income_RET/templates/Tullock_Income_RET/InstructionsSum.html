@@ -1,0 +1,29 @@
+{% load otree staticfiles %}
+
+<div class="card">
+    <div class="card-header bg-default mb-3"> Instructions </div>
+    <div class="card-body">
+
+    <p>
+        {% if subsession.round_number == 1%}
+            <h5>Per correctly solved sequence you will get {{ Constants.tokensper_string }} Token {% if Constants.treatment %} (before taxation and redistribution) {% endif %}.</h5>
+        {% else %}
+            {% if winner_last %}
+                <h5>Per correctly solved sequence you will get {{ Constants.tokensper_string_high }} Tokens {% if Constants.treatment %} (before taxation and redistribution) {% endif %}.</h5>
+            {% else %}
+                <h5>Per correctly solved sequence you will get {{ Constants.tokensper_string }} Token {% if Constants.treatment %} (before taxation and redistribution) {% endif %}.</h5>
+            {% endif %}
+        {% endif %}
+    </p>
+    <br>
+        <p>
+        Your task is to count how many <strong> "a"s </strong> there are in the sequence of characters currently displayed.
+    </p>
+        In the <strong> switch mode </strong>
+        you will get 0.1 token per each second in "switch"( = 1 Token per {{ Constants.secondsper_token }} seconds).
+    </p>
+    <p>
+        <strong>This round lasts {{ Constants.time_in_minutes|floatformat:0 }} Minutes.</strong>
+    </p>
+    </div>
+</div>

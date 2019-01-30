@@ -1,0 +1,110 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+{% load humanize %}
+
+{% block title %}
+    Grouping {% if Constants.treatment %} and Redistribution {% endif %}
+{% endblock %}
+
+{% block content %}
+<hr>
+   <div class="card bg-light instructions">
+   <div class="card-body">
+    <h3>Grouping</h3>
+    <p>
+        Each participant will be randomly matched with two other participants to form a group of {{ Constants.players_per_group|apnumber }}.
+        These groups will remain unchanged until the end of this session, i.e. you are matched with the same other two participants throughout.
+    </p>
+       <p>
+        Remember that your decisions and results will be absolutely anonymous. Your identity will neither be revealed to your co-participants nor to the experimenters
+        at any time during or after the experiment.</p>
+    <p>
+        You and the other group members will be performing the same type of task as in the rounds before.
+        There will be <strong>{{ Constants.num_rounds|apnumber }} rounds</strong> of {{ Constants.time_in_minutes|apnumber }} minutes each.
+    </p>
+
+        {% if Constants.treatment %}
+    <br>
+    <br>
+    <hr>
+    <p>
+
+        <h3>Taxation and Redistribution</h3>
+       <p>
+           Your income from the letter counting task (but not from time spent in the <em>switch mode</em>) will be taxed at a rate of {{ Constants.tax_rate_percent|floatformat:0 }}%.
+        All tax proceeds are then equally distributed among all members of the group,
+           i.e. each group member gets 1/{{ Constants.players_per_group}} of the total tax revenue.
+           The sum of your <em>Net Income</em> and the <em>Redistributed Amount</em> is your <strong>Available Income</strong>.
+       </p>
+    <br>
+        <hr>
+            <h3>Redistribution Example</h3>
+        <br>
+        <table class="table table-striped">
+            <tr>
+            <th>Participant</th>
+                <th> Income from Letter Counting (Tk)</th>
+                <th> Tax Deduction {{ Constants.tax_rate_percent }}% (Tk)</th>
+                <th> Net Income (Tk)</th>
+                <th> Redistributed Amount (Tk)</th>
+                <th> Available Income (Tk)</th>
+            </tr>
+            <tr>
+            <td>X</td>
+            <td>10</td>
+            <td>-6</td>
+            <td>4</td>
+            <td>8.6</td>
+            <td>12.6</td>
+            </tr>
+            <tr>
+            <td>Y</td>
+            <td>18</td>
+            <td>-10.8</td>
+            <td>7.2</td>
+            <td>8.6</td>
+            <td>15.8</td>
+            </tr>
+            <tr>
+            <td>Z</td>
+            <td>15</td>
+            <td>-9</td>
+            <td>6</td>
+            <td>8.6</td>
+            <td>14.6</td>
+            </tr>
+            <tr>
+            <td><strong>Total:</strong></td>
+            <td>43</td>
+            <td>-25.8</td>
+            <td>17.2</td>
+            <td>25.8</td>
+            <td>43</td>
+            </tr>
+        </table>
+        <p>
+        For instance, as illustrated in the table above, participant "X" solved 10 sequences with a piece rate of 1 Token per sequence and therefore earned a net income of 4 Tk.
+        Assuming that all three group members in total solved 43 sequences, and consequently 25.8 Tk (={{ Constants.tax_rate_percent|floatformat:0 }}% of 43Tk) are redistributed,
+            the total available income of participant "X" is equal to 12.6 Tk.
+        </p>
+       {% endif %}
+
+    <br>
+    <br>
+    <hr>
+    <br>
+    <br>
+       Do you have any questions?
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+
+   </div>
+   </div>
+
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+{% block title %}
+    Feedback Round {{ subsession.round_number }} of {{ Constants.num_rounds}}
+{% endblock %}
+
+{% block content %}
+<hr>
+<div class="card bg-light instructions">
+  <div class="card-body">
+      <table class="table">
+          <tr>
+          <th>
+              Solved Sequences
+          </th>
+              {% if Constants.treatment %}
+              <th>
+                  Gross Income
+              </th>
+              <th>
+                  Tax Rate
+              </th>
+              <th>
+                  Net Income
+              </th>
+              <th>
+                  Redistributed Amount
+              </th>
+              {% endif %}
+              <th>
+                  Available Income
+              </th>
+              <th>
+                  Time In Switch
+              </th>
+              <th>
+                  Earnings from Switch
+              </th>
+              <th>
+                  Total Earnings
+              </th>
+          </tr>
+          <tr>
+              <td>{{ player.production_strings|floatformat:0 }}</td>
+                  <!-- Feedback if treatment is True -->
+                {% if Constants.treatment %}
+              <td>{{ player.income_strings_gross|floatformat:0 }}</td>
+              <td>{{ Constants.tax_rate_percent|floatformat:0 }}%</td>
+              <td>{{ player.income_strings_after_tax|floatformat:2 }}</td>
+              <td>{{ group.transfer|floatformat:2 }}</td>
+              {% endif %}
+              <td><span class="badge badge-info">{{ player.available_income|floatformat:2 }}</span></td>
+              <td>{{player.time_in_switch}}</td>
+              <td>{{ player.income_in_switch|c|floatformat:1 }}</td>
+              <td><span class="badge badge-secondary"><strong>{{ player.net_income|floatformat:1 }}</strong></span></td>
+          </tr>
+      </table>
+  </div>
+</div>
+    <br>
+
+{% if subsession.round_number < Constants.num_rounds %}
+    <div class="alert alert-info" role="alert">
+        <p> Next, you will have the opportunity to invest some of your <strong>available income</strong> in order to win the higher piece rate.
+    Your probability of winning is equal to the share of your investment in relation to the sum of all investments by your group.</p>
+    </div>
+{% endif %}
+</div>
+<br>
+<!-- End Table -->
+ {% next_button %}
+
+{% endblock %}
+
+

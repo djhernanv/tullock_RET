@@ -1,0 +1,138 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+
+{% block title %}
+    Feedback Letter Counting Task
+     {% if subsession.round_number == 1 %}
+
+      {% elif Constants.treatment and subsession.round_number == 2 %}
+      - Taxed Low Piece Rate
+      {% elif Constants.treatment == False and subsession.round_number == 2 %}
+      - High Piece Rate
+      {% elif Constants.treatment and subsession.round_number == 3 %}
+      - High Piece Rate
+      {% elif subsession.round_number == 4 %}
+      - Taxed High Piece Rate
+     {% endif %}
+{% endblock %}
+
+{% block content %}
+
+<hr>
+
+<div class="card">
+  <div class="card-header text-white bg-secondary mb-3">Your earnings in this round
+      {% if subsession.round_number == 1 %}
+      (piece rate: {{ Constants.tokensper_string|floatformat:1 }} Tk per sequence)
+      {% elif Constants.treatment and subsession.round_number == 2 %}
+      (piece rate: {{ Constants.effective_taxed_tokensper_string|floatformat:1 }} Tk per sequence)
+      {% elif Constants.treatment == False and subsession.round_number == 2 %}
+      (piece rate: {{ Constants.tokensper_string_high|floatformat:1 }} Tk per sequence)
+      {% elif Constants.treatment and subsession.round_number == 3 %}
+      (piece rate: {{ Constants.tokensper_string_high|floatformat:1 }} Tk per sequence)
+      {% elif subsession.round_number == 4 %}
+      (piece rate: {{ Constants.effective_taxed_tokensper_string_high|floatformat:1 }} Tk per sequence)
+      {% endif %}
+      :</div>
+  <div class="card-body">
+      <p>
+    You solved {{ player.production_strings|floatformat:0 }} sequences and thus earned <strong>{{ player.income_strings_gross|c|floatformat:1 }}</strong> Tokens.<br>
+    You spent {{player.time_in_switch}} seconds in the <em>switch mode</em> and therefore earned <strong>{{player.income_in_switch|c|floatformat:1}}</strong> Tokens.<br><br>
+    Your total earnings in this round are hence <strong>{{player.net_income|c|floatformat:1}}</strong> Tokens. <br>
+      </p>
+
+            {% if Constants.treatment == False and subsession.round_number == 2 %}
+      <p>
+        <div class="card card-primary border-primary">
+        <div class="card-body">
+
+                With the high piece rate you earned {% if valuation > 0 %}<strong> {{ abs_valuation|floatformat:1 }} <strong>Tokens</strong> more than</strong>
+        {% elif valuation == 0 %}  <strong>the same </strong> <strong>Tokens</strong> as{% else %} <strong> {{ abs_valuation|floatformat:1 }} <strong>Tokens</strong> less than</strong>{% endif %}
+            with the low piece rate.
+
+        </div>
+        </div>
+      </p>
+        {% endif %}
+
+
+          {% if subsession.round_number == 3 %}
+      <p>
+        <div class="card card-primary border-primary">
+        <div class="card-body">
+
+                With the high piece rate you earned {% if valuation > 0 %}<strong> {{ abs_valuation|floatformat:1 }} Tokens more than</strong>
+        {% elif valuation == 0 %}  <strong>the same Tokens</strong> as{% else %} <strong> {{ abs_valuation|floatformat:1 }} <strong>Tokens</strong> less than</strong>{% endif %}
+            with the low piece rate.
+
+        </div>
+        </div>
+      </p>
+      {% endif %}
+
+     {% if subsession.round_number == 4 %}
+      <p>
+        <div class="card card-primary border-primary">
+        <div class="card-body">
+
+                With the taxed high piece rate you earned {% if valuation > 0 %}<strong> {{ abs_valuation|floatformat:1 }} <strong>Tokens</strong> more than</strong>
+        {% elif valuation == 0 %}  <strong>the same </strong> <strong>Tokens</strong> as{% else %} <strong> {{ abs_valuation|floatformat:1 }} <strong>Tokens</strong> less than</strong>{% endif %}
+            with the taxed low piece rate.
+
+        </div>
+        </div>
+      </p>
+      {% endif %}
+
+
+  </div>
+</div>
+
+    <br>
+        {% if subsession.round_number == 3 %}
+    <div class="card">
+  <div class="card-header bg-default mb-3">Your earnings in the round with the low piece rate (piece rate: 1 Tk per Sequence):</div>
+  <div class="card-body">
+    You solved {{ production_strings_last|floatformat:0 }} sequences and thus earned <strong>{{ income_strings_last|c|floatformat:0 }}</strong> Tokens.<br>
+    You spent {{time_in_switch_last}} seconds in the <em>switch mode</em>
+      and therefore earned <strong>{{income_in_switch_last|c|floatformat:1}}</strong> Tokens.<br><br>
+    Therefore, your total earnings in the round with the low piece rate were <strong>{{income_last|c|floatformat:1}}</strong> Tokens. <br>
+  </div>
+</div>
+
+    {% endif %}
+<br>
+
+        <br>
+        {% if subsession.round_number == 4 %}
+    <div class="card">
+  <div class="card-header bg-default mb-3">Your earnings in the round with the taxed low piece rate (piece rate: {{ Constants.effective_taxed_tokensper_string|floatformat:1 }} Tk per Sequence):</div>
+  <div class="card-body">
+    You solved {{ production_strings_last|floatformat:0 }} sequences and thus earned <strong>{{ income_strings_last|c|floatformat:1 }}</strong> Tokens.<br>
+    You spent {{time_in_switch_last}} seconds in the <em>switch mode</em>
+      and therefore earned <strong>{{income_in_switch_last|c|floatformat:1}}</strong> Tokens.<br><br>
+    Therefore, your total earnings in the previous round were <strong>{{income_last|c|floatformat:1}}</strong> Tokens. <br>
+  </div>
+</div>
+
+    {% endif %}
+
+    <br>
+        {% if subsession.round_number == 2 and Constants.treatment == False %}
+    <div class="card">
+  <div class="card-header bg-default mb-3">Your earnings in the previous (piece rate: {{ Constants.effective_taxed_tokensper_string|floatformat:1 }} Tk per Sequence):</div>
+  <div class="card-body">
+    You solved {{ production_strings_last|floatformat:0 }} sequences and thus earned <strong>{{ income_strings_last|c|floatformat:1 }}</strong> Tokens.<br>
+    You spent {{time_in_switch_last}} seconds in the <em>switch mode</em>
+      and therefore earned <strong>{{income_in_switch_last|c|floatformat:1}}</strong> Tokens.<br><br>
+    Therefore, your total earnings in the previous round were <strong>{{income_last|c|floatformat:1}}</strong> Tokens. <br>
+  </div>
+</div>
+
+    {% endif %}
+<br>
+
+{% next_button %}
+
+{% endblock %}

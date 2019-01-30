@@ -1,0 +1,32 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Questionnaire
+{% endblock %}
+
+{% block content %}
+<hr>
+
+<div class="card">
+<div class="card-header bg-default mb-3"> Please answer the following questions:</div>
+<div class="card-body">
+<ol type="1"> <!-- This starts a numbered list -->
+
+
+   <li> Which gender do you feel most identified with?
+       {% formfield player.gender label="" %} </li>
+
+
+    <li> In which year were you born?
+       {% formfield player.year_of_birth label="" %} </li>
+
+</ol>
+
+</div>
+</div>
+
+<br>
+    {% next_button %}
+
+{% endblock %}

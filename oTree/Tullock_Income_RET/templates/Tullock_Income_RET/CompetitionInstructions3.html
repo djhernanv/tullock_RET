@@ -1,0 +1,66 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+{% block title %}
+    Further Instructions
+{% endblock %}
+
+{% block content %}
+
+<hr>
+   <div class="card bg-light instructions">
+   <div class="card-body">
+
+       <h3>Group Composition and Participant Labels</h3>
+
+       <p>
+           The three participants of your group are labelled A, B and C.
+           <br>
+           <div class="card border-secondary mb-3 text-center" style="max-width: 35rem;">
+            <div class="card-body">
+           You are participant <strong>{{ player.role }}</strong>
+            </div>
+            </div>
+           <br>
+           Note that the composition of the group and the participant labels will remain the same throughout the session.
+       </p>
+<br>
+        <h3>The Structure of the Experiment</h3>
+    <p>
+        After the Letter Counting task you will get feedback about the number of sequences you solved and your earnings.
+        Subsequently, you will have the opportunity to make an investment
+        and, finally, you will see the results for the group.</p>
+
+    <p>
+        After completion of all rounds you will be asked to fill a short survey before the session ends.</p>
+    <p>
+        Next we will ask you about your opinion about
+        the luck involved in the game and your beliefs regarding the production of the other players.
+	    After that, you may need to wait for other participants to get ready.
+    </p>
+
+       <br>
+<br>
+<br>
+    <hr>
+Do you have any questions?
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+   </div>
+    </div>
+
+
+
+{% endblock %}

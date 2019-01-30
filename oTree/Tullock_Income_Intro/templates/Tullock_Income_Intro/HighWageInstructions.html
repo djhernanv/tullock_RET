@@ -1,0 +1,42 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+{% load humanize %}
+
+
+{% block title %}
+    High Piece Rate Earnings
+{% endblock %}
+
+{% block content %}
+<hr>
+<div class="card bg-light instructions">
+    <div class="card-body">
+    <p>
+      The following task is similar to the {% if Constants.treatment %} previous ones{% else %} previous one{% endif %},
+        but <strong> you will earn {{ Constants.tokensper_string_high }}
+        Tokens</strong> {% if Constants.treatment == False %} (instead of {{ Constants.tokensper_string }} Tokens) {% endif %}
+        per correctly solved sequence.
+    </p>
+    <p> <U>Remember:</U> At any time, you have the option to change to the <strong><em>switch mode</em></strong>. In this mode, you will earn <strong>1 Token
+        per {{ Constants.secondsper_token|apnumber }} seconds</strong> without solving any tasks. For instance, for spending 13 seconds in the
+        <strong><em>switch mode</em></strong> you earn 1.3 Tk. Given the higher piece rate in this round, it is advisable to change
+        into the <em>switch mode</em> later.
+        <div class="alert alert-warning" role="alert">
+        <U>Important:</U> Once you are in the <strong><em>switch mode</em></strong> you cannot go back to the letter counting task!
+        </div></p>
+        <hr>
+        <br>
+        <br>
+        <br>
+    <p>
+        Do you have any questions?
+    </p>
+        <br>
+        <br>
+        <br>
+    </div>
+</div>
+
+    {% endblock %}
+
+
